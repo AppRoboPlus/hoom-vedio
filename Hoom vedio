@@ -1,6 +1,86 @@
 [
   {
-    "نام": "Action Bar",
-    "کد": "hdjdjxj"
+    "نام": "نمایش درصد شارژ",
+    "کد": "BatteryManager bm \u003d (BatteryManager)getSystemService(BATTERY_SERVICE);\nint batLevel \u003d bm.getIntProperty(BatteryManager.BATTERY_PROPERTY_CAPACITY);\ntextview1.setText(Integer.toString(batLevel));"
+  },
+  {
+    "نام": "پیغام",
+    "کد": "\nSketchwareUtil.showMessage(getApplicationContext(), \"متن مورد نظر\");"
+  },
+  {
+    "نام": "ارسال اعلان",
+    "کد": "/*\nDeveloper :- Aauraparti YouTube channel\nPowered by :- Gopal\n*/\n\nfinal Context context \u003d getApplicationContext();\n\n\nNotificationManager notificationManager \u003d (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);\n\nIntent intent \u003d new Intent(this, MainActivity.class); \nintent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP); \nPendingIntent pendingIntent \u003d PendingIntent.getActivity(this, 0, intent, 0); \nandroidx.core.app.NotificationCompat.Builder builder; \n\n    int notificationId \u003d 1;\n    String channelId \u003d \"channel-01\";\n    String channelName \u003d \"Channel Name\";\n    int importance \u003d NotificationManager.IMPORTANCE_HIGH;\n\n    if (android.os.Build.VERSION.SDK_INT \u003e\u003d android.os.Build.VERSION_CODES.O) {\n        NotificationChannel mChannel \u003d new NotificationChannel(\n                channelId, channelName, importance);\n        notificationManager.createNotificationChannel(mChannel);\n    }\n\n  \n androidx.core.app.NotificationCompat.Builder mBuilder \u003d new androidx.core.app.NotificationCompat.Builder(context, channelId)\n            .setSmallIcon(R.drawable.icon)\n            .setContentTitle(_av1)\n            .setContentText(_av2)\n            .setAutoCancel(true)\n            .setOngoing(false)\n            .setContentIntent(pendingIntent);\n    TaskStackBuilder stackBuilder \u003d TaskStackBuilder.create(context);\n    stackBuilder.addNextIntent(intent);\n    PendingIntent resultPendingIntent \u003d stackBuilder.getPendingIntent(\n            0,\n            PendingIntent.FLAG_UPDATE_CURRENT\n    );\n    mBuilder.setContentIntent(resultPendingIntent);\n\n    notificationManager.notify(notificationId, mBuilder.build());"
+  },
+  {
+    "نام": "ضد اسکرین شات",
+    "کد": "getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);"
+  },
+  {
+    "نام": "رنگ فب",
+    "کد": "_fab.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.parseColor(\"رنگ مورد نظر خود\".replace(\"0xFF\" , \"#\"))));"
+  },
+  {
+    "نام": "انیمیشن لیست ویو",
+    "کد": "Animation animation;animation \u003d AnimationUtils.loadAnimation(\ngetApplicationContext(),android.R.anim.slide_in_left);animation.setDuration(200);linear1.startAnimation(animation); animation \u003d null;"
+  },
+  {
+    "نام": "اشتراک عکس",
+    "کد": "Bitmap bm \u003d ((android.graphics.drawable.BitmapDrawable) imageview1.getDrawable()).getBitmap(); try { java.io.File file \u003d new java.io.File(getExternalCacheDir() + \"/image.jpg\"); java.io.OutputStream out \u003d new java.io.FileOutputStream(file); bm.compress(Bitmap.CompressFormat.JPEG, 100, out); out.flush(); out.close(); } catch (Exception e) { showMessage(e.toString()); } Intent iten \u003d new Intent(android.content.Intent.ACTION_SEND); iten.setType(\"*/*\"); iten.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new java.io.File(getExternalCacheDir() + \"/image.jpg\"))); startActivity(Intent.createChooser(iten, \"Send image\"));"
+  },
+  {
+    "نام": "نمایش دمای باتری",
+    "کد": "IntentFilter ifilter \u003d new IntentFilter(Intent.ACTION_BATTERY_CHANGED);\nIntent batteryStatus \u003d registerReceiver(null, ifilter);\nint temp \u003d batteryStatus.getIntExtra(BatteryManager.EXTRA_TEMPERATURE,0);\nfloat tempTwo \u003d ((float) temp) / 10;\ntextview1.setText(tempTwo + \" °C\");"
+  },
+  {
+    "نام": "فیلتر شکن",
+    "کد": "Intent vi \u003d VpnService.prepare(MainActivity.this);\n\nif (vi !\u003d null) {\n\nstartActivityForResult(vi, 3); \n}"
+  },
+  {
+    "نام": "حذف برنامه ها",
+    "کد": "Intent startupIntent \u003d new Intent(Intent.ACTION_MAIN); \t\tstartupIntent.addCategory(Intent.CATEGORY_LAUNCHER);  \t\tfinal android.content.pm.PackageManager pm \u003d getPackageManager(); \t\tList\u003candroid.content.pm.ResolveInfo\u003e activities \u003d pm.queryIntentActivities(startupIntent,0);   \t\tCollections.sort(activities, new Comparator\u003candroid.content.pm.ResolveInfo\u003e() {  \t\t\t\tpublic int compare(android.content.pm.ResolveInfo a, android.content.pm.ResolveInfo b) {  \t\t\t\t\tandroid.content.pm.PackageManager pm \u003d getPackageManager();  \t\t\t\t\treturn String.CASE_INSENSITIVE_ORDER.compare(  \t\t\t\t\t\ta.loadLabel(pm).toString(),  \t\t\t\t\t\tb.loadLabel(pm).toString());  \t\t\t\t}  \t\t\t});   \t\tArrayAdapter\u003candroid.content.pm.ResolveInfo\u003e adapter \u003d new ArrayAdapter\u003candroid.content.pm.ResolveInfo\u003e(  \t\t\tthis, android.R.layout.simple_list_item_1, activities) {  \t\t\tpublic View getView(int pos, View convertView, ViewGroup parent) { TextView tv \u003d new TextView(MainActivity.this);  \t\t\t\tandroid.content.pm.ResolveInfo ri \u003d getItem(pos);  \t\t\ttv.setText(ri.loadLabel(pm));  \tLinearLayout lin \u003d new LinearLayout(MainActivity.this);ImageView iv \u003d new ImageView(MainActivity.this);iv.setImageDrawable(ri.loadIcon(pm));lin.addView(iv);lin.addView(tv);tv.setGravity(Gravity.CENTER_VERTICAL);tv.setPadding(16,0,0,0);tv.setTextSize(16);tv.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.MATCH_PARENT ));LinearLayout.LayoutParams p \u003d\tnew LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.MATCH_PARENT);p.width \u003d 70;p.height \u003d 70;p.bottomMargin \u003d 4;p.topMargin \u003d 4;iv.setLayoutParams(p);lin.setPadding(6,6,6,6);return lin;  \t\t\t}  \t\t};  \t\tlistview1.setAdapter(adapter); \t\t \t\tlistview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {  \t\t\t\t@Override \t\t\t\tpublic void onItemClick(AdapterView adapter, View v, int position, long id) \t\t\t\t{ \t\t\t\t\tandroid.content.pm.ResolveInfo resolveInfo \u003d (android.content.pm.ResolveInfo)adapter.getItemAtPosition(position);  \t\t\t\t\tandroid.content.pm.ActivityInfo activityInfo \u003d resolveInfo.activityInfo;  \t\t\t\t\tif (activityInfo \u003d\u003d null) return;  \t\t\t\t\tUri packageURI \u003d Uri.parse(\"package:\".concat(activityInfo.applicationInfo.packageName)); Intent uninstallIntent \u003d new Intent(Intent.ACTION_DELETE, packageURI); startActivity(uninstallIntent); \t\t\t\t}  \t\t\t \t\t});;"
+  },
+  {
+    "نام": "دیالوگ لودینگ",
+    "کد": "ProgressDialog pd \u003d new android.app.ProgressDialog(MainActivity.this);\n\n\t\tpd.setMessage(\"در حال بارگیری\");\n\n\t\tandroid.graphics.drawable.GradientDrawable gd \u003d new android.graphics.drawable.GradientDrawable();\n\n\t\tgd.setColor(android.graphics.Color.parseColor(\"#ffeb3b\"));\n\t\tgd.setCornerRadius(25);\n\t\tgd.setStroke(4,android.graphics.Color.parseColor(\"#000000\"));\n\t\tpd.setButton(\"لغو\", new DialogInterface.OnClickListener(){\n\n\t\t\t\t@Override\n\t\t\t\tpublic void onClick(DialogInterface p1, int p2)\n\t\t\t\t{\n\t\t\t\t\t// TODO: Implement this method\n\t\t\t\t}\n\t\t\t});\n\n\t\tpd.setCancelable(false);\n\n\t\tpd.getWindow().setBackgroundDrawable(new android.graphics.drawable.InsetDrawable(gd,25));\n\t\tpd.show();"
+  },
+  {
+    "نام": "وسط چین کردن نام تولبر",
+    "کد": "ActionBar actionBar \u003d getActionBar();\nactionBar.setDisplayShowCustomEnabled(true);\nactionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); \nactionBar.setCustomView(getLayoutInflater().inflate(R.layout.action_bar_main, null),\n        new ActionBar.LayoutParams(\n                ActionBar.LayoutParams.WRAP_CONTENT,\n                ActionBar.LayoutParams.MATCH_PARENT,\n                Gravity.CENTER\n        )\n);"
+  },
+  {
+    "نام": "ساعت دیجیتال",
+    "کد": "//This code is use to make digitatal time or Clock in project.\n\n//Code by Md Tausif Iqbal//\nfinal DigitalClock dc \u003d new DigitalClock(this);\nlinear1.addView (dc);"
+  },
+  {
+    "نام": "ادیت تکست در دیالوگ",
+    "کد": "//This code is use to create dialog with edittext in a project.\n\n LinearLayout mylayout \u003d new LinearLayout(this); LinearLayout.LayoutParams params \u003d new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT); mylayout.setLayoutParams(params); mylayout.setOrientation(LinearLayout.VERTICAL); final EditText myedittext \u003d new EditText(this);  myedittext.setLayoutParams(new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT)); mylayout.addView(myedittext); dialog.setView(mylayout);"
+  },
+  {
+    "نام": "جستجو در لیست ویو",
+    "کد": "//This code is use to allows you to search items on your listview project.\n\n((ArrayAdapter)listview1.getAdapter()).getFilter().filter(edittext1.getText().toString());"
+  },
+  {
+    "نام": "نمایش کیبورد",
+    "کد": "edittext1.setShowSoftInputOnFocus(true);"
+  },
+  {
+    "نام": "پنهان کردن کیبورد",
+    "کد": "edittext1.setShowSoftInputOnFocus(false);"
+  },
+  {
+    "نام": "تست روت",
+    "کد": "try {\n\nRuntime.getRuntime().exec(\"su\"); \n\nresultado.setText(\"Root user\");\n\n} catch (Exception e ) {\n\nresultado.setText(\"Normal user\");\nshowMessage(e.toString());\n\n}"
+  },
+  {
+    "نام": "تم مشکی برای دیالوگ",
+    "کد": "setTheme(android.R.style.Theme_Material);"
+  },
+  {
+    "نام": "بزرگ نمایی عکس",
+    "کد": "//To set Imageview Zoom out in a project.\n\n float x\u003dimageview1.getScaleX(), y\u003dimageview1.getScaleY(),yenix\u003dx-1,yeniy\u003dy-1; imageview1.setScaleX(yenix);imageview1.setScaleY(yeniy);"
+  },
+  {
+    "نام": "کوچک نمایی عکس",
+    "کد": "//To set Imageview Zoom out in a project.\n\n float x\u003dimageview1.getScaleX(), y\u003dimageview1.getScaleY(),yenix\u003dx-1,yeniy\u003dy-1; imageview1.setScaleX(yenix);imageview1.setScaleY(yeniy);"
   }
 ]
